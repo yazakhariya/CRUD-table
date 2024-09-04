@@ -1,3 +1,5 @@
+import UserList from 'src/modules/UserList'
+
 export default function MainPage() {
-  return <div>MainPage</div>
+  return <UserList />
 }
