@@ -8,9 +8,16 @@ import {
   Typography,
 } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
+import { useDispatch } from 'react-redux'
+import { registerUser } from '../api/actionCreater/fetchRegisterUser'
+import { AppDispatch } from '../api/store'
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = React.useState(false)
+  const [username, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  const dispatch = useDispatch<AppDispatch>()
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
 
@@ -24,6 +31,12 @@ export default function RegistrationForm() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault()
+  }
+
+  const handleSubmit = () => {
+    dispatch(registerUser({ username, password })).then((res) =>
+      localStorage.setItem('token', JSON.stringify(res.payload.data.token))
+    )
   }
 
   return (
@@ -45,10 +58,16 @@ export default function RegistrationForm() {
       >
         Sign in
       </Typography>
-      <Input required id="outlined-required" placeholder="Login" />
+      <Input
+        required
+        id="outlined-required"
+        placeholder="Login"
+        onChange={(e) => setUsername(e.target.value)}
+      />
       <Input
         id="standard-adornment-password"
         placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
         type={showPassword ? 'text' : 'password'}
         endAdornment={
           <InputAdornment position="end">
@@ -63,7 +82,7 @@ export default function RegistrationForm() {
           </InputAdornment>
         }
       />
-      <Button variant="contained" color="secondary">
+      <Button variant="contained" color="secondary" onClick={handleSubmit}>
         Submit
       </Button>
     </FormGroup>
