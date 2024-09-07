@@ -10,7 +10,7 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { useDispatch } from 'react-redux'
 import { registerUser } from '../api/actionCreater/fetchRegisterUser'
-import { AppDispatch } from '../api/store'
+import { AppDispatch } from 'src/store'
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = React.useState(false)

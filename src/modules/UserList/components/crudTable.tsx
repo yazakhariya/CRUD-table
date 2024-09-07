@@ -26,6 +26,7 @@ import {
   randomId,
   randomArrayItem,
 } from '@mui/x-data-grid-generator'
+import { useGetDataQuery } from '../api/actionCreator/fetchData'
 
 const roles = ['Market', 'Finance', 'Development']
 const randomRole = () => {
@@ -103,6 +104,9 @@ export default function CrudTable() {
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
     {}
   )
+
+  const { data } = useGetDataQuery()
+  console.log(data)
 
   const handleRowEditStop: GridEventListener<'rowEditStop'> = (
     params,
